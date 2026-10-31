@@ -5,7 +5,9 @@
                 <li>Valentin Gonzalez - valentin.gonzalez@etu.univ_lyon1.fr</li>
                 <li>Idman Ibrahim Abdi - idman.ibrahim-abdi@etu.univ-lyon1.fr</li>
             </ul>
+            <br>
 
+            Pour les tests/vérification :
             <?php
                 echo '<h3>$_GET</h3>';
                     var_dump($_GET);
