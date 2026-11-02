@@ -2,7 +2,7 @@
             Blog - TP_noté <br>
             <ul>
                 <li>Agathe Balsan - agathe.balsan@etu.univ-lyon1.fr</li>
-                <li>Valentin Gonzalez - valentin.gonzalez@etu.univ_lyon1.fr</li>
+                <li>Valentin Gonzalez - valentin.gonzalez@etu.univ-lyon1.fr</li>
                 <li>Idman Ibrahim Abdi - idman.ibrahim-abdi@etu.univ-lyon1.fr</li>
             </ul>
             <br>
