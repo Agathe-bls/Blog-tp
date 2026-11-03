@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 03 nov. 2026 à 17:09
+-- Généré le : mar. 03 nov. 2026 à 17:23
 -- Version du serveur : 8.4.7
 -- Version de PHP : 8.3.28
 
@@ -31,11 +31,12 @@ DROP TABLE IF EXISTS `article`;
 CREATE TABLE IF NOT EXISTS `article` (
   `id` int NOT NULL AUTO_INCREMENT,
   `titre` varchar(100) NOT NULL,
-  `description` text COMMENT 'Contenu de l''article',
+  `description` text NOT NULL COMMENT 'Contenu de l''article',
   `pseudo` varchar(50) NOT NULL,
   `categorie_id` int DEFAULT NULL COMMENT 'Identifiant de la catégorie',
   PRIMARY KEY (`id`),
-  KEY `fk_article_categorie` (`categorie_id`)
+  KEY `fk_article_categorie` (`categorie_id`),
+  KEY `fk_article_user` (`pseudo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -64,7 +65,8 @@ CREATE TABLE IF NOT EXISTS `commentaire` (
   `pseudo` varchar(50) NOT NULL,
   `article_id` int NOT NULL COMMENT 'Identifiant de l''article commenté',
   PRIMARY KEY (`id`),
-  KEY `fk_commentaire_article` (`article_id`)
+  KEY `fk_commentaire_article` (`article_id`),
+  KEY `fk_commentaire_user` (`pseudo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -93,13 +95,15 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Contraintes pour la table `article`
 --
 ALTER TABLE `article`
-  ADD CONSTRAINT `fk_article_categorie` FOREIGN KEY (`categorie_id`) REFERENCES `categorie` (`id`) ON DELETE SET NULL;
+  ADD CONSTRAINT `fk_article_categorie` FOREIGN KEY (`categorie_id`) REFERENCES `categorie` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `fk_article_user` FOREIGN KEY (`pseudo`) REFERENCES `user` (`pseudo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
-  ADD CONSTRAINT `fk_commentaire_article` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_commentaire_article` FOREIGN KEY (`article_id`) REFERENCES `article` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_commentaire_user` FOREIGN KEY (`pseudo`) REFERENCES `user` (`pseudo`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
