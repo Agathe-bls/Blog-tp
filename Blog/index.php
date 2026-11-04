@@ -3,11 +3,14 @@
 //Inclusion du header
 require_once('header.php');
 require_once('pdo.php');
-$estConnecte = $_SESSION['estConnecte'];
-if($estConnecte == 0){
+sleep(2);
+if($_SESSION['estConnecte'] == 0){
+    sleep(2);
     header("Location: connexion.php");
     exit();
-}
+    }
+    
+    
 
 //Simulation temporaire des articles (avec les pseudos disponibles)
 $articles = [
@@ -31,7 +34,7 @@ if ($filtrePseudo !== '') {
 ?>
 
 <main>
-    <h2>Accueil du Blog</h2>
+    <h2>Accueil du Blog<?php var_dump($_SESSION['estConnecte']); ?></h2>
 
     <!-- Formulaire -->
     <form method="GET" action="index.php">
