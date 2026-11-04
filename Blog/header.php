@@ -10,11 +10,8 @@
 <?php require_once('pdo.php'); ?>
 
 <html>
-    <meta>
-        <title>Blog</title>
-    </meta>
-
     <head>
+        <title>Blog</title>
         <meta charset="UTF-8">
         <title>Mon Blog - TP Noté</title>
         <link rel="stylesheet" href="style.css">

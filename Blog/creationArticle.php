@@ -1,26 +1,28 @@
 <?php require_once('header.php'); ?>
 
+<main>
 
     <div>
-        <h1>Création d'un nouvel article</h1>
+        <h1>Poste un nouvel article !</h1>
 
+        <!-- Formulaire -->
         <form method="POST">
             <label>
-                Titre :
-                <input name="newTitre" type="text"/>
+                <h2>Titre :</h2>
+                <input name="newTitre" type="text" placeholder = "donnez le titre de votre article"/>
             </label>
 
             <label>
-                Description :
-                <input name="newDescription" type="text"/>
+                <h2>Description :</h2>
+                <textarea name="newDescription" placeholder = "décrivez votre article" row="8" ></textarea>
             </label>
 
             <label>
-                Catégorie :
+                <h2>Catégorie :</h2>
                 <?php $categories = getAllCategories($connexion); ?>
 
-                <select name="newCategorie">
-                    <option value="">---Choisir une catégorie---</option>
+                <select name="newCategorie" required>
+                    <option value="" selected hidden >Choisissez une catégorie pour votre article</option>
                     <?php
                     foreach ($categories as $cat): ?>
                         <option value="<?= htmlspecialchars($cat['id']) ?>">
@@ -31,6 +33,6 @@
             </label>
         </form>
     </div>
-
+</main>
 
 <?php require_once('footer.php'); ?>
