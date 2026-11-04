@@ -7,6 +7,9 @@
 -- Version du serveur : 8.4.7
 -- Version de PHP : 8.3.28
 
+CREATE DATABASE IF NOT EXISTS blog DEFAULT CHARACTER SET utf8mb3;
+USE blog;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
