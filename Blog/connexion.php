@@ -1,7 +1,10 @@
 <?php 
 require_once('header.php');
 require_once('pdo.php');
+$_SESSION['estConnecte'] = 0;
+
 if (isset($_POST['email']) && isset($_POST['mdp'])) {
+    
     
     $msgErreur = "test";
 
@@ -13,9 +16,9 @@ if (isset($_POST['email']) && isset($_POST['mdp'])) {
     $user = $result1->fetch(PDO::FETCH_ASSOC);
     
     if($user){
+        sleep(2);
         $_SESSION['estConnecte'] = 1;
         header("Location: index.php");
-        $msgErreur = "connexion réussi";
         exit();
     }
 

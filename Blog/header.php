@@ -5,10 +5,7 @@
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
-    if($_SESSION['estConnecte'] != 1){
-        $_SESSION['estConnecte'] = 0;
-    }
-    
+
 ?>
 <?php require_once('pdo.php'); ?>
 
