@@ -3,47 +3,71 @@ require_once('header.php');
 require_once('pdo.php');
 $estConnecte = $_SESSION['estConnecte'];    
 if (isset($_POST['email']) && isset($_POST['mdp'])) {
+    var_dump($nouvelId);
+    $msgErreur = "test";
     $estConnecte = 1;
 
     $email = $_POST['email'];
     $mdp = $_POST['mdp'];
 
-    $query1 = "select * from user where email = '$email'";
-    $result = mysqli_query($connexion, $query1);
-    $user = mysqli_fetch_assoc($result);
 
-    $query2 = "select * from user where email = '$email' && mdp = '$mdp'";
-    $result2 = mysqli_query($connexion, $query2);
-    $mdp = mysqli_fetch_assoc($result2);
+    $query1 = "select * from user where email = ? AND mdp = ?";
+    $result1 = $connexion->prepare($query1);
+    $result1->execute([$email, $mdp]);
+    $user = $result1->fetch(PDO::FETCH_ASSOC);
     
     if($user){
-        if($mdp){
-            
-            header(affichageArticle.php);
-            exit();
+        $estConnecte = 1;
+        header("Location: index.php");
+        $msgErreur = "connexion réussi";
+        exit();
+    }
+    
+
+    else{
+        $msgErreur = "connexion impossible";
+    }
+    $msgErreur = "connexion non reussi";
+
+    $query2 = "select * from user where email = ?";
+    $result2 = $connexion->prepare($query2);
+    $result2->execute([$email]);
+    $testEmail = $result2->fetch(PDO::FETCH_ASSOC);
+
+    if($testEmail)
+        $stmt = $connexion->prepare("SELECT MAX(id) FROM ma_table");
+        if(!$stmt){
+            $nouvelId=$connexion->lastInsertId()+1;
+            $msgErreur = "table vide";
         }
         else{
-            $estConnecte = 0;
-            $msgErreur = 'connexion impossible, veuillez changer le mot de passe ou l email';
+            $stmt->execute();
+            $nouvelId = $stmt->fetchColumn() + 1;
         }
-    }
-    else{
+
+        $insertion = "insert into user (id, email, mdp, pseudo)  values (:id, :email, :mdp, :pseudo)";
         
+        $stmt =$connexion->prepare($insertion);
+        
+        echo "<p>$nouvelId</p>";
 
-        $chercheId = "select max(id) from user";
-        $resultat = mysqli_query($connexion, $chercheId);
-        $id = mysqli_fetch_assoc($resultat) + 1;
+        $stmt -> execute([
+            ':id'=>$nouvelId,
+            ':email'=>$email,
+            ':mdp'=>$mdp,
+            ':pseudo'=>"aaa"
 
-        $insertion = "insert into user (id, email, mdp, pseudo) 
-                        values ('$id', '$email', '$mdp', )";
-        header(affichageArticle.php);
+        ]);
+
+        header("Location: affichageArticle.php");
+        exit();
     }
-}
+
 ?>
 
 
     <div>
-        <h1>Connexion</h1>
+        <h1>Connexion<?php if (!empty($msgErreur)) echo "<p>$msgErreur</p>"; ?></h1>
     </div>
 
     <form method="post" action="">
@@ -53,7 +77,7 @@ if (isset($_POST['email']) && isset($_POST['mdp'])) {
         <input type="text" name="mdp" placeholder="Mot de passe" required><br>
         <button type="submit">Se connecter</button>
     </form>
-    <?php if (!empty($msgErreur)) echo "<p>$msgErreur</p>"; ?>
+    
 
 
 
