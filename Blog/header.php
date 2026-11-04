@@ -12,10 +12,20 @@
     <meta>
         <title>Blog</title>
     </meta>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Mon Blog - TP Noté</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
     <body>
         <header>
+            <div class="logo">
+                <h2>The Blog</h2>
+            </div>
             <ul>
                 <li><a href="index.php">Accueil</a></li>
-                <li><a href="creationArticle.php"></a></li>
+                <li><a href="creationArticle.php">Poster</a></li>
             </ul>
         </header>
