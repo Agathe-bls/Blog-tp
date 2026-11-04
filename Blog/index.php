@@ -1,6 +1,13 @@
 <?php
+
 //Inclusion du header
-include('header.php');
+require_once('header.php');
+require_once('pdo.php');
+$estConnecte = $_SESSION['estConnecte'];
+if($estConnecte == 0){
+    header("Location: connexion.php");
+    exit();
+}
 
 //Simulation temporaire des articles (avec les pseudos disponibles)
 $articles = [
