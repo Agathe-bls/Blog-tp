@@ -7,6 +7,7 @@
     error_reporting(E_ALL);
     $_SESSION['estConnecte'] = 0;
 ?>
+<?php require_once('pdo.php'); ?>
 
 <html>
     <meta>

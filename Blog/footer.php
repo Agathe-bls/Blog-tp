@@ -6,7 +6,9 @@
                 <li>Idman Ibrahim Abdi - idman.ibrahim-abdi@etu.univ-lyon1.fr</li>
             </ul>
             <br>
-
+            
+            <?php
+            /*
             Pour les tests/vérification :
             <?php
                 echo '<h3>$_GET</h3>';
@@ -17,6 +19,8 @@
                     var_dump($_SESSION);
                 echo '<h3>_SERVER</h3>';
                     var_dump($_SERVER);
+            ?>
+            */
             ?>
         </footer>
     </body>
