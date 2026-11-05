@@ -7,6 +7,11 @@ if (isset($_POST['email']) && isset($_POST['mdp'])) {
     $email = $_POST['email'];
     $mdp = $_POST['mdp'];
     
+    if($email == "admin@localhost.fr" && $mdp == "admin69IUT"){
+        $_SESSION['estAdmin'] = 1;
+        header("Location: index.php");
+    }
+
     $query2 = "select * from user where email = ?";
 	$result2 = $connexion->prepare($query2);
 	$result2->execute([$email]);
@@ -38,7 +43,7 @@ if (isset($_POST['email']) && isset($_POST['mdp'])) {
 
 ?>
 
-
+<main>
     <div>
         <h1>Connexion <?php if (!empty($msgErreur)) echo "<p>$msgErreur</p>"; ?></h1>
     </div>
@@ -51,7 +56,7 @@ if (isset($_POST['email']) && isset($_POST['mdp'])) {
         <button type="submit">Se connecter</button>
     </form>
 
-
+</main>
 
 
 

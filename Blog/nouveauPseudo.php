@@ -12,12 +12,11 @@ if(isset($_POST['pseudo'])){
         $stmt->execute();
         $nouvelId = $stmt->fetchColumn() + 1;
 
-        $insertion = "insert into user (id, email, mdp, pseudo)  values (:id, :email, :mdp, :pseudo)";
+        $insertion = "insert into user ( email, mdp, pseudo)  values (:email, :mdp, :pseudo)";
         
         $stmt =$connexion->prepare($insertion);
 
         $stmt -> execute([
-            ':id'=>$nouvelId,
             ':email'=>$_SESSION['email'],
             ':mdp'=>$_SESSION['mdp'],
             ':pseudo'=>$pseudo
@@ -35,7 +34,7 @@ if(isset($_POST['pseudo'])){
 
 ?>
 
-
+<main>
     <div>
         <h1>Saisir pseudo</h1>
     </div>
@@ -48,6 +47,6 @@ if(isset($_POST['pseudo'])){
     </form>
     <p><?= isset($msgErreur) ? htmlspecialchars($msgErreur) : '' ?></p>
 
-
+</main>
 
 <?require_once('footer.php') ?>
