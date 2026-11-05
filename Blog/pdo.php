@@ -14,7 +14,8 @@ $connexion = null;
 	}
 
 	function checkUser($email, $mdp, $connexion){
-    	$result1 = $connexion->prepare("select * from user where email = ? AND mdp = ?");
+		$query1 = ;
+    	$result1 = $connexion->prepare($query1);
     	$result1->execute([$email, $mdp]);
     	return $result1->fetch(PDO::FETCH_ASSOC);
 	}

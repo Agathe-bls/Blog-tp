@@ -1,39 +1,22 @@
 <?php 
 require_once('header.php');
 require_once('pdo.php');
-$_SESSION['estConnecte'] = 0;
+
 
 if (isset($_POST['email']) && isset($_POST['mdp'])) {
-    
-    
-    $msgErreur = "test";
 
     $email = $_POST['email'];
     $mdp = $_POST['mdp'];
-
-    $result1 = $connexion->prepare("select * from user where email = ? AND mdp = ?");
-    $result1->execute([$email, $mdp]);
-    $user = $result1->fetch(PDO::FETCH_ASSOC);
     
-    if($user){
-        sleep(2);
-        $_SESSION['estConnecte'] = 1;
-        header("Location: index.php");
-        exit();
-    }
+    $query2 = "select * from user where email = ?";
+	$result2 = $connexion->prepare($query2);
+	$result2->execute([$email]);
+	$testEmail = $result2->fetch(PDO::FETCH_ASSOC);
 
-    $testEmail = checkMailUser($email);
-
-    if(!$testEmail)
+    if(!$testEmail){
         $stmt = $connexion->prepare("SELECT MAX(id) FROM user");
-        if(!$stmt){
-            $nouvelId=$connexion->lastInsertId()+1;
-            $msgErreur = "table vide";
-        }
-        else{
-            $stmt->execute();
-            $nouvelId = $stmt->fetchColumn() + 1;
-        }
+        $stmt->execute();
+        $nouvelId = $stmt->fetchColumn() + 1;
 
         $insertion = "insert into user (id, email, mdp, pseudo)  values (:id, :email, :mdp, :pseudo)";
         
@@ -48,9 +31,22 @@ if (isset($_POST['email']) && isset($_POST['mdp'])) {
             ':pseudo'=>$nouvelId+1
 
         ]);
+    }
+
+
+
+
+    $result1 = $connexion->prepare("select * from user where email = ? AND mdp = ?");
+    $result1->execute([$email, $mdp]);
+    $user = $result1->fetch(PDO::FETCH_ASSOC);
+    
+    if($user){
+        $_SESSION['estConnecte'] = 1;
         header("Location: index.php");
         exit();
     }
+   
+}
 
 ?>
 
