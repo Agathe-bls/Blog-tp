@@ -12,5 +12,8 @@ $connexion = null;
 		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		return $rows;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 203226a2978d471dd7a8ba941d40811c2a8b16fd
 ?>
