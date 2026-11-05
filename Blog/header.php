@@ -8,6 +8,7 @@
 
 ?>
 <?php require_once('pdo.php'); ?>
+<?php require_once('fonctionsUtiles.php'); ?>
 
 <script>
 window.addEventListener("beforeunload", function () {
