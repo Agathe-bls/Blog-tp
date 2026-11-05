@@ -1,6 +1,5 @@
 <?php 
 require_once('header.php');
-require_once('pdo.php');
 
 
 if (isset($_POST['email']) && isset($_POST['mdp'])) {
