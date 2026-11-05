@@ -9,6 +9,12 @@
 ?>
 <?php require_once('pdo.php'); ?>
 
+<script>
+window.addEventListener("beforeunload", function () {
+    navigator.sendBeacon("reset.php");
+});
+</script>
+
 <html>
     <head>
         <title>Blog</title>

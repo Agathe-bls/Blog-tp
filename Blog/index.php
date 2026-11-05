@@ -3,9 +3,7 @@
 //Inclusion du header
 require_once('header.php');
 require_once('pdo.php');
-sleep(2);
 if (!isset($_SESSION['estConnecte']) || $_SESSION['estConnecte'] != 1) {
-    sleep(2);
     header("Location: connexion.php");
     exit();
 }
@@ -33,11 +31,7 @@ if ($filtrePseudo !== '') {
     });
 }
 ?>
-<script>
-if (performance.getEntriesByType("navigation")[0].type === "reload") {
-    window.location.href = "reset.php";
-}
-</script>
+
 
 <main>
     <h2>Accueil du Blog<?php var_dump($_SESSION['estConnecte']); ?></h2>
