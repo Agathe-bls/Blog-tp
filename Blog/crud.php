@@ -2,7 +2,11 @@
 session_start();
 require_once('pdo.php');
 
-
+// Si pas admin on redirige a verifier si ca marche
+if (!isset($_SESSION['estAdmin']) || $_SESSION['estAdmin'] != 1) {
+    header("Location: index.php");
+    exit();
+}
 
 //Ajout d'une catégorie
 $msg = "";
@@ -35,7 +39,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <!-- Formulaire -->
             <form method="POST" action="crud.php" style="margin-bottom: 20px;">
-                <input type="text" name="nom_categorie" placeholder="Nom de la nouvelle catégorie">
+                <input type="text" name="nom_categorie" placeholder="Nom de la nouvelle catégorie" >
                 <button type="submit">Ajouter</button>
             </form>
 
