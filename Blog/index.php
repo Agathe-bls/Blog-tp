@@ -1,41 +1,34 @@
 <?php
-
-//Inclusion du header
+// Inclusion du header et de la connexion PDO
 require_once('header.php');
 require_once('pdo.php');
+
+// Vérification de la connexion
 if (!isset($_SESSION['estConnecte']) || $_SESSION['estConnecte'] != 1) {
     header("Location: connexion.php");
     exit();
 }
 
-    
-    
+// 1. Récupérer dynamiquement la liste unique des auteurs depuis la base de données pour le filtre
+$stmtPseudos = $connexion->query("SELECT DISTINCT pseudo FROM article ORDER BY pseudo");
+$pseudos = $stmtPseudos->fetchAll(PDO::FETCH_COLUMN);
 
-//Simulation temporaire des articles (avec les pseudos disponibles)
-$articles = [
-    ['id' => 1, 'titre' => 'Mon premier article', 'description' => 'Contenu du premier article...', 'pseudo' => 'John Lenon'],
-    ['id' => 2, 'titre' => 'Découverte de PHP', 'description' => 'PHP c\'est super pour créer des sites web dynamiques.', 'pseudo' => 'Paul McCartney'],
-    ['id' => 3, 'titre' => 'Les bases de SQL', 'description' => 'Apprendre à faire des requêtes SELECT.', 'pseudo' => 'John Lenon'],
-];
-
-//Récupérer une liste unique des pseudos pour la liste déroulante automatiquement
-$pseudos = array_unique(array_column($articles, 'pseudo'));
-
-//Gestion du filtre par pseudo
+// 2. Gestion du filtre par pseudo avec une requête SQL sécurisée
 $filtrePseudo = isset($_GET['pseudo']) ? trim($_GET['pseudo']) : '';
 
-$articlesFiltres = $articles;
 if ($filtrePseudo !== '') {
-    $articlesFiltres = array_filter($articles, function($article) use ($filtrePseudo) {
-        return strcasecmp($article['pseudo'], $filtrePseudo) === 0;
-    });
+    $stmtArticles = $connexion->prepare("SELECT * FROM article WHERE pseudo = ? ORDER BY id DESC");
+    $stmtArticles->execute([$filtrePseudo]);
+} else {
+    $stmtArticles = $connexion->query("SELECT * FROM article ORDER BY id DESC");
 }
+$articlesFiltres = $stmtArticles->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <main>
     <h2>Accueil du Blog</h2>
 
-    <!-- Formulaire -->
+    <!-- Formulaire de filtre -->
     <form method="GET" action="index.php">
         <label for="pseudo">Filtrer par auteur :</label>
         <select id="pseudo" name="pseudo">
@@ -61,6 +54,7 @@ if ($filtrePseudo !== '') {
                     <h4><?= htmlspecialchars($article['titre']) ?></h4>
                     <p><?= htmlspecialchars($article['description']) ?></p>
                     <small>Écrit par <strong><?= htmlspecialchars($article['pseudo']) ?></strong></small>
+                    <br>
                     <a href="affichageArticle.php?id=<?= $article['id'] ?>">Lire la suite & commentaires</a>
                 </div>
             <?php endforeach; ?>
