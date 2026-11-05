@@ -26,15 +26,13 @@ if (isset($_POST['email']) && isset($_POST['mdp'])) {
 
     }
 
-
-
-
     $result1 = $connexion->prepare("select * from user where email = ? AND mdp = ?");
     $result1->execute([$email, $mdp]);
     $user = $result1->fetch(PDO::FETCH_ASSOC);
     
     if($user){
         $_SESSION['estConnecte'] = 1;
+        $_SESSION['pseudo'] = $user['pseudo'];
         header("Location: index.php");
         exit();
     }
