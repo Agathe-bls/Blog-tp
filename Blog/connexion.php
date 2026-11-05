@@ -13,23 +13,12 @@ if (isset($_POST['email']) && isset($_POST['mdp'])) {
 	$testEmail = $result2->fetch(PDO::FETCH_ASSOC);
 
     if(!$testEmail){
-        $stmt = $connexion->prepare("SELECT MAX(id) FROM user");
-        $stmt->execute();
-        $nouvelId = $stmt->fetchColumn() + 1;
+        $_SESSION['email'] = $email;
+        $_SESSION['mdp'] = $mdp;
 
-        $insertion = "insert into user (id, email, mdp, pseudo)  values (:id, :email, :mdp, :pseudo)";
-        
-        $stmt =$connexion->prepare($insertion);
-        
-        echo "<p>$nouvelId</p>";
+        header("Location: nouveauPseudo.php");
+        exit();
 
-        $stmt -> execute([
-            ':id'=>$nouvelId,
-            ':email'=>$email,
-            ':mdp'=>$mdp,
-            ':pseudo'=>$nouvelId+1
-
-        ]);
     }
 
 
@@ -55,13 +44,16 @@ if (isset($_POST['email']) && isset($_POST['mdp'])) {
     </div>
 
     <form method="post" action="">
-        <h2>Connexion <?php echo var_dump($_SESSION['estConnecte']); ?></h2>
+        <h2>Connexion</h2>
         
         <input type="text" name="email" placeholder="Mail utilisateur" required><br>
         <input type="text" name="mdp" placeholder="Mot de passe" required><br>
         <button type="submit">Se connecter</button>
     </form>
-    
+
+
+
+
 
 
 

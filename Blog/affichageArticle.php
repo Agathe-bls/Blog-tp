@@ -1,6 +1,8 @@
 <?php
 //Inclusion du header
-include('header.php');
+require_once('header.php');
+
+
 
 //Récupérer l'ID de l'article passé dans l'URL
 $articleId = isset($_GET['id']) ? intval($_GET['id']) : 0;

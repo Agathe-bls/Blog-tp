@@ -32,9 +32,8 @@ if ($filtrePseudo !== '') {
 }
 ?>
 
-
 <main>
-    <h2>Accueil du Blog<?php var_dump($_SESSION['estConnecte']); ?></h2>
+    <h2>Accueil du Blog</h2>
 
     <!-- Formulaire -->
     <form method="GET" action="index.php">
