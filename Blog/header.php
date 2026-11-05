@@ -10,12 +10,6 @@
 <?php require_once('pdo.php'); ?>
 <?php require_once('fonctionsUtiles.php'); ?>
 
-<script>
-window.addEventListener("beforeunload", function () {
-    navigator.sendBeacon("reset.php");
-});
-</script>
-
 <html>
     <head>
         <title>Blog</title>
@@ -32,5 +26,6 @@ window.addEventListener("beforeunload", function () {
             <ul>
                 <li><a href="index.php">Accueil</a></li>
                 <li><a href="creationArticle.php">Poster</a></li>
+                <li><a href="reset.php">Déconnexion</a></li>
             </ul>
         </header>

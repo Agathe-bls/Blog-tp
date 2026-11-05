@@ -5,12 +5,11 @@
                 <li>Valentin Gonzalez - valentin.gonzalez@etu.univ-lyon1.fr</li>
                 <li>Idman Ibrahim Abdi - idman.ibrahim-abdi@etu.univ-lyon1.fr</li>
             </ul>
-            <br>
             
             <?php
-            /*
-            Pour les tests/vérification :
-            <?php
+            
+            //Pour les tests/vérification :
+            
                 echo '<h3>$_GET</h3>';
                     var_dump($_GET);
                 echo '<h3>$_POST</h3>';
@@ -19,8 +18,6 @@
                     var_dump($_SESSION);
                 echo '<h3>_SERVER</h3>';
                     var_dump($_SERVER);
-            ?>
-            */
             ?>
         </footer>
     </body>

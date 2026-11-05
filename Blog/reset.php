@@ -1,8 +1,11 @@
 <?php
+
 session_start();
 
-$_SESSION['estConnecte'] = 0;
-
+session_unset();      // vide toutes les variables de session
+session_destroy();    // détruit la session
 
 header("Location: connexion.php");
 exit();
+
+?>

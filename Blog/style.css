@@ -1,5 +1,12 @@
 /*Style global */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 body {
+    display: flex;
+    flex-direction: column;
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -45,7 +52,8 @@ header ul li a:hover {
 
 /*Conteneur principal centré*/
 main {
-    max-width: 800px;
+    flex: 1;
+    width: 800;
     margin: 2rem auto;
     background: #ffffff;
     padding: 2rem;
@@ -89,6 +97,7 @@ input[type="text"], select, textarea {
 textarea {
     resize: vertical;
     min-height: 100;
+    width: 100%;
 }
 
 select:invalid {
@@ -113,11 +122,11 @@ button:hover {
     background-color: #2980b9;
 }
 
-button[value="reset"] {
+button[name="btReset"] {
     background-color: #3b617a;
 }
 
-button[value="reset"]:hover {
+button[name="btReset"]:hover {
     background-color: #1e4966;
 }
 
