@@ -113,6 +113,14 @@ button:hover {
     background-color: #2980b9;
 }
 
+button[value="reset"] {
+    background-color: #3b617a;
+}
+
+button[value="reset"]:hover {
+    background-color: #1e4966;
+}
+
 /*Cartes des articles sur l'accueil*/
 .article-card {
     background: #fff;
