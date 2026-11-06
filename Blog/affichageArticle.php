@@ -68,6 +68,14 @@
                 <h1><?= htmlspecialchars($articleCourant['titre']) ?></h1>
                 <p>Écrit par <strong><?= htmlspecialchars($articleCourant['pseudo']) ?></strong></p>
                 <p><?= htmlspecialchars($articleCourant['description']) ?></p>
+                <?php if(isset($_SESSION['pseudo']) && $_SESSION['pseudo'] == $articleCourant['pseudo']){ ?>
+                    <form method="post" action="supprimerArticle.php">
+                        <input type="hidden" name="id_article" value="<?= $articleCourant['id'] ?>">
+                            <button type="submit">
+                                Supprimer mon article
+                            </button>
+                    </form>
+                <?php } ?>
             </article>
 
             <div class="section-commentaires">
@@ -80,6 +88,17 @@
                         <div class="commentaire">
                             <p><strong><?= htmlspecialchars($com['pseudo']) ?></strong> a écrit :</p>
                             <p><?= htmlspecialchars($com['description']) ?></p>
+
+                            <?php if(isset($_SESSION['pseudo']) && $_SESSION['pseudo'] == $com['pseudo']){ ?>
+
+                                <form method="post" action="supprimerCommentaire.php">
+                                    <input type="hidden" name="id_com" value="<?= $com['id'] ?>">
+                                        <button type="submit">
+                                            Supprimer mon commentaire
+                                        </button>
+                                </form>
+                            <?php } ?>
+
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>

@@ -40,6 +40,12 @@
             <div>
                 <h1>Accueil du Blog</h1>
 
+                <?php 
+                if(isset($_SESSION['messageSuppression'])){
+                    showMsgErreur($_SESSION['messageSuppression']);
+                }
+                 ?>
+
                 <h2>Filtres</h2>
                 <!-- Formulaire de filtre -->
                 <form method="GET" action="index.php">
@@ -55,7 +61,6 @@
                     <button type="submit">Filtrer</button>
                     <a href="index.php" class="btreset">Réinitialiser</a>
                 </form>
-
                 <h2>Liste des articles</h2>
                 <?php if (empty($articlesFiltres)): ?>
                     <?php showMsgErreur("Aucun article trouvé pour cet auteur."); ?>

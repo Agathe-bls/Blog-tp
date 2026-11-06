@@ -34,4 +34,17 @@ $connexion = null;
 		$st->bindParam(4, $pseudoCreateur);
 		$st->execute();
 	}
+
+	function supprimerCommentaire($id, $conn){
+		$sql = "delete from commentaire where id = ?";
+		$st = $conn->prepare($sql);
+		$st->execute([$id]);
+	}
+
+	function supprArticle($id, $conn){
+		$sql = "delete from article where id = ?";	
+		$st = $conn->prepare($sql);
+		$st->execute([$id]);
+	}
+	
 ?>
