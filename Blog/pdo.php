@@ -46,5 +46,29 @@ $connexion = null;
 		$st = $conn->prepare($sql);
 		$st->execute([$id]);
 	}
-	
+
+	//Fonction qui vérifie que l'utilisateur actuel est toujours en bdd et qu'il est bien connecté 
+	function verifConnexionUtilisateur($connexion) {
+		if (!isset($_SESSION['estConnecte']) || $_SESSION['estConnecte'] != 1) {
+			$_SESSION['msgErreurConnexion'] = "Vous n'êtes plus connecté(e), veuillez vous reconnecter !";
+			header("Location: connexion.php");
+			exit();
+		}
+
+		if (empty($_SESSION['pseudo'])) {
+			$_SESSION=[];
+			$_SESSION['msgErreurConnexion'] = "Vous n'êtes plus connecté(e), votre pseudo est manquant, veuillez vous reconnecter !";
+			header("Location: connexion.php");
+			exit();
+		}
+
+		$stmt = $connexion->prepare("SELECT id FROM user WHERE pseudo = ?");
+		$stmt->execute([$_SESSION['pseudo']]);
+		if (!$stmt->fetch()) {
+			$_SESSION=[];
+			$_SESSION['msgErreurConnexion'] = "Vous n'êtes plus connecté(e), votre compte n'existe plus, veuillez vous reconnecter !";
+			header("Location: connexion.php");
+			exit();
+		}
+	}
 ?>

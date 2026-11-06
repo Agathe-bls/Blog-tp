@@ -31,7 +31,7 @@
                 header("Location: index.php");
                 exit();
             } else{
-                $msgErreur = "Le pseudo est déjà pris, veuillez en sélectionner un autre";
+                $msgErreur = "Le pseudo est déjà pris, veuillez en sélectionner un autre !";
             }
         }
     }

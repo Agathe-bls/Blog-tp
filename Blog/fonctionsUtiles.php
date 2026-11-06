@@ -4,7 +4,7 @@
     }
 
 //Fonction permettant d'afficher les messages d'erreurs
-    function showMsgErreur(?string $msg, string $color = "#ba0707", ?string $style = null): void {
+    function showMsgErreur(?string $msg, string $color = "#690f07", ?string $style = null): void {
         if(null === $msg || !isset($msg)){
             return;
         }

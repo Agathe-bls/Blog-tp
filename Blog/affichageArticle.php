@@ -5,10 +5,7 @@
 
 <?php
 //Vérification de la connexion
-    if (!isset($_SESSION['estConnecte']) || $_SESSION['estConnecte'] != 1) {
-        header("Location: connexion.php");
-        exit();
-    }
+    verifConnexionUtilisateur($connexion);
 ?>
 
 <?php
@@ -65,7 +62,7 @@ $articleId = isset($_GET['id']) ? intval($_GET['id']) : 0;
             <article>
                 <h1><?= htmlspecialchars($articleCourant['titre']) ?></h1>
                 <p>Écrit par <strong><?= htmlspecialchars($articleCourant['pseudo']) ?></strong></p>
-                <p><?= htmlspecialchars($articleCourant['description']) ?></p>
+                <p><?= nl2br(htmlspecialchars($articleCourant['description'])) ?></p>
                 <?php if(isset($_SESSION['pseudo']) && $_SESSION['pseudo'] == $articleCourant['pseudo']){ ?>
 
                     <form method="post" action="supprimerArticle.php">
@@ -84,15 +81,12 @@ $articleId = isset($_GET['id']) ? intval($_GET['id']) : 0;
                     <?php foreach ($commentairesArticle as $com): ?>
                         <div class="commentaire">
                             <p><strong><?= htmlspecialchars($com['pseudo']) ?></strong> a écrit :</p>
-                            <p><?= htmlspecialchars($com['description']) ?></p>
-
+                            <p><?= nl2br(htmlspecialchars($com['description'])) ?></p>
                             <?php if(isset($_SESSION['pseudo']) && $_SESSION['pseudo'] == $com['pseudo']){ ?>
 
                                 <form method="post" action="supprimerCommentaire.php">
                                     <input type="hidden" name="id_com" value="<?= $com['id'] ?>">
-                                        <button type="submit">
-                                            Supprimer mon commentaire
-                                        </button>
+                                        <button type="submit" name="btReset">Supprimer mon commentaire</button>
                                 </form>
                             <?php } ?>
 

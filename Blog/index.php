@@ -5,10 +5,7 @@
 
 <?php
 //Vérification de la connexion
-    if (!isset($_SESSION['estConnecte']) || $_SESSION['estConnecte'] != 1) {
-        header("Location: connexion.php");
-        exit();
-    }
+    verifConnexionUtilisateur($connexion);
 ?>
 
 <?php
@@ -69,7 +66,8 @@
                         <?php foreach ($articlesFiltres as $article): ?>
                             <div class="article-card">
                                 <h3><?= htmlspecialchars($article['titre']) ?></h3>
-                                <p><?= htmlspecialchars($article['description']) ?></p>
+                                <!-- le 'nl2br' c'est pour prendre en compte les retours à la ligne dans les blogs-->
+                                <p><?= nl2br(htmlspecialchars($article['description'])) ?></p>
                                 <small>Écrit par <strong><?= htmlspecialchars($article['pseudo']) ?></strong></small>
                                 <br>
                                 <a href="affichageArticle.php?id=<?= $article['id'] ?>">Lire la suite & commentaires</a>

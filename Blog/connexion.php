@@ -33,7 +33,7 @@
                 $_SESSION['estConnecte'] = 1;
                 $_SESSION['pseudo'] = $user['pseudo'];
 
-                if ($user['email'] == "admin@localhost.fr" && user['mdp'] == "admin69IUT") {
+                if ($user['email'] == "admin@localhost.fr" && $user['mdp'] == "admin69IUT") {
                     $_SESSION['estAdmin'] = 1;
                 } else {
                     $_SESSION['estAdmin'] = 0;
@@ -51,11 +51,17 @@
             <div>
                 <h1>Connexion</h1>
                 
-                <?php showMsgErreur($msgErreur); ?>
-                <?php showMsgErreur($msgErreurMDP); ?>
-
+                <?php
+                showMsgErreur($msgErreur);
+                showMsgErreur($msgErreurMDP);
+                if(isset($_SESSION['msgErreurConnexion'])){
+                    showMsgErreur($_SESSION['msgErreurConnexion']);
+                    unset($_SESSION['msgErreurConnexion']);
+                }
+                ?>
                 <form method="post" action="">
-                    <input type="text" name="email" placeholder="Mail utilisateur" required><br>
+                    <input type="text" name="email" placeholder="Mail utilisateur" required
+                    value="<?= $_POST['email'] ?? ($_SESSION['email'] ?? '') ?>"><br>
                     <input type="password" name="mdp" placeholder="Mot de passe" required><br>
                     <button type="submit">Se connecter</button>
                 </form>

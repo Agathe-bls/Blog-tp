@@ -2,8 +2,8 @@
 
 session_start();
 
-session_unset();      // vide toutes les variables de session
-session_destroy();    // détruit la session
+session_unset();
+session_destroy();
 
 header("Location: connexion.php");
 exit();

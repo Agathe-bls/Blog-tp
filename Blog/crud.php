@@ -31,8 +31,7 @@
                 <h1>Gestion des Catégories</h1>
 
                 <?php if (!empty($msg)): ?>
-                    <?php showMsgErreur($msg, color : 'green'); ?>
-                    <!-- <p style="color: green;"><?= $msg ?></p> -->
+                    <?php showMsgErreur($msg, color : "#126907"); ?>
                 <?php endif; ?>
 
                 <!-- Formulaire -->

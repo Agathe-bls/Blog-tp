@@ -2,10 +2,7 @@
 
 <?php
 //Vérification de la connexion
-    if (!isset($_SESSION['estConnecte']) || $_SESSION['estConnecte'] != 1) {
-        header("Location: connexion.php");
-        exit();
-    }
+    verifConnexionUtilisateur($connexion);
 ?>
 
 <?php
