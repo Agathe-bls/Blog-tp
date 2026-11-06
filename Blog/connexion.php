@@ -50,7 +50,7 @@
 
                 <form method="post" action="">
                     <input type="text" name="email" placeholder="Mail utilisateur" required><br>
-                    <input type="text" name="mdp" placeholder="Mot de passe" required><br>
+                    <input type="password" name="mdp" placeholder="Mot de passe" required><br>
                     <button type="submit">Se connecter</button>
                 </form>
             </div>
