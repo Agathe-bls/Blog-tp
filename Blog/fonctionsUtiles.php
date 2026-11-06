@@ -1,5 +1,4 @@
 <?php
- 
     class FontStyle{
         public const ITALIC = "italic";
     }

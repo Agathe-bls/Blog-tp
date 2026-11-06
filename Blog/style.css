@@ -26,7 +26,7 @@ header {
     align-items: center;
 }
 
-header h2 {
+header h1 {
     color: #ffffff;
     margin: 0;
 }
@@ -53,7 +53,7 @@ header ul li a:hover {
 /*Conteneur principal centré*/
 main {
     flex: 1;
-    width: 800;
+    width: 800px;
     margin: 2rem auto;
     background: #ffffff;
     padding: 2rem;
@@ -108,7 +108,7 @@ select option {
     color: #000;
 }
 
-button {
+button, a.btreset {
     background-color: #3498db;
     color: white;
     padding: 0.6rem 1.2rem;
@@ -116,19 +116,33 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+
+
+    /*Fait en sorte que le bouton et le lien aient le même style*/
+    font-family: inherit;   /* le bouton hérite de la police du body */
+    font-size: 0.9rem;        /* même taille que le texte courant */
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1;       /* même hauteur de ligne */
+    
 }
 
 button:hover {
     background-color: #2980b9;
 }
 
-button[name="btReset"] {
+button[name="btReset"], a.btreset {
     background-color: #3b617a;
 }
 
-button[name="btReset"]:hover {
+button[name="btReset"]:hover, a.btreset:hover {
     background-color: #1e4966;
 }
+
+a.btreset{
+    
+}
+
 
 /*Cartes des articles sur l'accueil*/
 .article-card {
@@ -137,6 +151,9 @@ button[name="btReset"]:hover {
     padding: 1.5rem;
     border-radius: 6px;
     margin-bottom: 1.5rem;
+    /*Possibilité de découper les mots si le texte dépasse du cadre*/
+    word-break: break-word;
+    hyphens: auto;
 }
 
 /*Style des commentaires*/

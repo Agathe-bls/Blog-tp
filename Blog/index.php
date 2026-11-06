@@ -44,7 +44,7 @@
                 <!-- Formulaire de filtre -->
                 <form method="GET" action="index.php">
                     <label for="pseudo">Filtrer par auteur :</label>
-                    <select id="pseudo" name="pseudo">
+                    <select id="pseudo" name="pseudo" required>
                         <option value="">Tous les auteurs</option>
                         <?php foreach ($pseudos as $p): ?>
                             <option value="<?= htmlspecialchars($p) ?>" <?= ($filtrePseudo === $p) ? 'selected' : '' ?>>
@@ -53,7 +53,7 @@
                         <?php endforeach; ?>
                     </select>
                     <button type="submit">Filtrer</button>
-                    <a href="index.php">Réinitialiser</a>
+                    <a href="index.php" class="btreset">Réinitialiser</a>
                 </form>
 
                 <h2>Liste des articles</h2>

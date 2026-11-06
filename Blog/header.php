@@ -12,16 +12,16 @@
 
 <html>
     <head>
-        <title>Blog</title>
+        <title>Blog - TP Noté</title>
         <meta charset="UTF-8">
-        <title>Mon Blog - TP Noté</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
         <header>
             <div class="logo">
-                <h2>The Blog</h2>
+                <h1>The Blog</h1>
             </div>
             <ul>
                 <li><a href="index.php">Accueil</a></li>
