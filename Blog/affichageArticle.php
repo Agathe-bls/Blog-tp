@@ -18,24 +18,13 @@
 /*traitement des erreurs */
 
 //Récupérer l'ID de l'article passé dans l'URL
-$articleId = isset($_POST['id']) ? intval($_POST['id']) : 0;
+$articleId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Récupérer l'article depuis la base de données via une requête 
     $stmtArticle = $connexion->prepare("SELECT * FROM article WHERE id = ?");
     $stmtArticle->execute([$articleId]);
     $articleCourant = $stmtArticle->fetch(PDO::FETCH_ASSOC);
 
-//Vérifier si l'article existe bien
-    if (!$articleCourant) {
-    ?>
-        <main>
-            <a href="index.php">← Retour à l'accueil</a> <br> <br>
-            <?php showMsgErreur("Oups ! Cet article n'existe pas."); ?>
-        </main>
-    <?php
-        require_once('footer.php');
-        exit();
-    }
 
 //Gestion de l'ajout d'un commentaire via le formulaire POST
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['texte_commentaire'])) {
@@ -64,6 +53,15 @@ $articleId = isset($_POST['id']) ? intval($_POST['id']) : 0;
         <main>
             <a href="index.php">← Retour à l'accueil</a>
 
+            <!-- Vérifier si l'article existe bien -->
+                <?php if (!$articleCourant): ?>
+                    <br>
+                    <p><?php showMsgErreur("Oups ! Cet article n'existe pas."); ?></p>
+                    </main>
+                    <?php require_once('footer.php'); ?>
+                    <?php exit(); ?>
+                <?php endif; ?>
+
             <article>
                 <h1><?= htmlspecialchars($articleCourant['titre']) ?></h1>
                 <p>Écrit par <strong><?= htmlspecialchars($articleCourant['pseudo']) ?></strong></p>
@@ -72,9 +70,7 @@ $articleId = isset($_POST['id']) ? intval($_POST['id']) : 0;
 
                     <form method="post" action="supprimerArticle.php">
                         <input type="hidden" name="id_article" value="<?= $articleCourant['id'] ?>">
-                            <button type="submit">
-                                Supprimer mon article
-                            </button>
+                            <button type="submit" name="btReset">Supprimer mon article</button>
                     </form>
                 <?php } ?>
             </article>

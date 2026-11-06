@@ -11,7 +11,7 @@ if (isset($_POST['id_com'])) {
 
 
 }
-$_SESSION['messageSuppression'] = "votre commentaire a été supprimé avec succès"; 
+$_SESSION['messageSuppression'] = "Commentaire supprimé avec succès !"; 
 // Retour à la page précédente
 header("Location: index.php" );
 exit();

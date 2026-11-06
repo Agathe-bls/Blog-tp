@@ -3,42 +3,47 @@
 <?php
 /*Initialisation des messages d'erreurs (variables) */
     $msgErreur = "";
+    $msgErreurMDP = "";
 
 /*traitement des erreurs */
     if (isset($_POST['email']) && isset($_POST['mdp'])) {
+        if (mb_strlen($_POST['mdp']) < 8){
+            $msgErreurMDP = 'Votre mot de passe est invalide, il doit comporter plus de 8 caractères !';
+        } else {    
+            $email = $_POST['email'];
+            $mdp = $_POST['mdp'];
 
-        $email = $_POST['email'];
-        $mdp = $_POST['mdp'];
-        /*
-        if($email == "admin@localhost.fr" && $mdp == "admin69IUT"){
-            $_SESSION['estAdmin'] = 1;
-            header("Location: index.php");
-            exit();
-        }*/
+            $query2 = "select * from user where email = ?";
+            $result2 = $connexion->prepare($query2);
+            $result2->execute([$email]);
+            $testEmail = $result2->fetch(PDO::FETCH_ASSOC);
 
-        $query2 = "select * from user where email = ?";
-        $result2 = $connexion->prepare($query2);
-        $result2->execute([$email]);
-        $testEmail = $result2->fetch(PDO::FETCH_ASSOC);
+            if(!$testEmail){
+                $_SESSION['email'] = $email;
+                $_SESSION['mdp'] = $mdp;
+                header("Location: nouveauPseudo.php");
+                exit();
+            }
 
-        if(!$testEmail){
-            $_SESSION['email'] = $email;
-            $_SESSION['mdp'] = $mdp;
+            $result1 = $connexion->prepare("select * from user where email = ? AND mdp = ?");
+            $result1->execute([$email, $mdp]);
+            $user = $result1->fetch(PDO::FETCH_ASSOC);
+            
+            if($user){
+                $_SESSION['estConnecte'] = 1;
+                $_SESSION['pseudo'] = $user['pseudo'];
 
-            header("Location: nouveauPseudo.php");
-            exit();
+                if ($user['email'] == "admin@localhost.fr" && user['mdp'] == "admin69IUT") {
+                    $_SESSION['estAdmin'] = 1;
+                } else {
+                    $_SESSION['estAdmin'] = 0;
+                }
+                
+                header("Location: index.php");
+                exit();
+            }
         }
 
-        $result1 = $connexion->prepare("select * from user where email = ? AND mdp = ?");
-        $result1->execute([$email, $mdp]);
-        $user = $result1->fetch(PDO::FETCH_ASSOC);
-        
-        if($user){
-            $_SESSION['estConnecte'] = 1;
-            $_SESSION['pseudo'] = $user['pseudo'];
-            header("Location: index.php");
-            exit();
-        }
     }
 ?>
 
@@ -47,6 +52,7 @@
                 <h1>Connexion</h1>
                 
                 <?php showMsgErreur($msgErreur); ?>
+                <?php showMsgErreur($msgErreurMDP); ?>
 
                 <form method="post" action="">
                     <input type="text" name="email" placeholder="Mail utilisateur" required><br>

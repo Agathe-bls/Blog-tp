@@ -37,9 +37,14 @@
 
                 <?php 
                 if(isset($_SESSION['messageSuppression'])){
-                    showMsgErreur($_SESSION['messageSuppression']);
+                    showMsgErreur($_SESSION['messageSuppression'], color : '#126907');
+                    unset($_SESSION['messageSuppression']);
                 }
-                 ?>
+                if(isset($_SESSION['messageNonAdmin'])){
+                    showMsgErreur($_SESSION['messageNonAdmin']);
+                    unset($_SESSION['messageNonAdmin']);
+                }
+                ?>
 
                 <h2>Filtres</h2>
                 <!-- Formulaire de filtre -->

@@ -23,9 +23,16 @@
             <div class="logo">
                 <h1>The Blog</h1>
             </div>
-            <ul>
-                <li><a href="index.php">Accueil</a></li>
-                <li><a href="creationArticle.php">Poster</a></li>
-                <li><a href="reset.php">Déconnexion</a></li>
-            </ul>
+            <?php if(isset($_SESSION['estConnecte']) && $_SESSION['estConnecte'] == 1) { ?>
+                <ul>
+                    
+                    <li><a href="index.php">Accueil</a></li>
+                    <li><a href="creationArticle.php">Poster</a></li>
+                    <?php if($_SESSION['estAdmin'] == 1) { ?>
+                        <li><a href="crud.php">CRUD</a></li>
+                    <?php } ?>
+                    <li><a href="reset.php">Déconnexion</a></li>
+                    
+                </ul>
+            <?php } ?>
         </header>

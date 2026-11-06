@@ -27,6 +27,7 @@
                 ]);
 
                 $_SESSION['estConnecte'] = 1;
+                $_SESSION['estAdmin'] = 0;
                 header("Location: index.php");
                 exit();
             } else{

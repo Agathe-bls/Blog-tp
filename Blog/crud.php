@@ -2,7 +2,7 @@
 
 <?php
 /*Initialisation des messages d'erreurs (variables) */
-    $msg = "";
+    $_SESSION['messageNonAdmin'] = "Vous n'êtes pas administrateur vous n'avez pas accès à cette page";
 
 /*traitement des erreurs */
 // Si pas admin on redirige a verifier si ca marche

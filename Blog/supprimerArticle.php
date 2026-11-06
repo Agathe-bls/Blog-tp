@@ -23,7 +23,7 @@ if (isset($_POST['id_article'])) {
 }
 // Retour à la page précédente
 
-$_SESSION['messageSuppression'] = "article suppimé avec succès";
+$_SESSION['messageSuppression'] = "Article suppimé avec succès !";
 header("Location: index.php" );
 exit();
 
