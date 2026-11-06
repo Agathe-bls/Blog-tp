@@ -41,6 +41,8 @@
                 
                 header("Location: index.php");
                 exit();
+            } else {
+                $msgErreur = "Mot de passe et email invalides !";
             }
         }
 

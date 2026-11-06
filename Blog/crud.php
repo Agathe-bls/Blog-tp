@@ -1,12 +1,10 @@
 <?php require_once('header.php'); ?>
 
 <?php
-/*Initialisation des messages d'erreurs (variables) */
-    $_SESSION['messageNonAdmin'] = "Vous n'êtes pas administrateur vous n'avez pas accès à cette page";
-
 /*traitement des erreurs */
 // Si pas admin on redirige a verifier si ca marche
     if (!isset($_SESSION['estAdmin']) || $_SESSION['estAdmin'] != 1) {
+        $_SESSION['messageNonAdmin'] = "Vous n'êtes pas administrateur vous n'avez pas accès à cette page !";
         header("Location: index.php");
         exit();
     }
@@ -18,6 +16,35 @@
             $stmt = $connexion->prepare("INSERT INTO categorie (nom) VALUES (?)");
             $stmt->execute([$nom]);
             $msg = "Catégorie ajoutée avec succès !";
+        }
+    }
+
+//Modifier une catégorie
+    if (isset($_POST['modifier_id'], $_POST['nouveau_nom'])) {
+        $id  = intval($_POST['modifier_id']);
+        $nom = trim($_POST['nouveau_nom']);
+
+        if (!empty($nom)) {
+            $stmt = $connexion->prepare("UPDATE categorie SET nom = ? WHERE id = ?");
+            $stmt->execute([$nom, $id]);
+            $msg = "Catégorie modifiée avec succès !";
+        }
+    }
+
+//Supprimer une catégorie
+    if (isset($_POST['supprimer_id'])) {
+        $id = intval($_POST['supprimer_id']);
+
+        $verif = $connexion->prepare("SELECT COUNT(*) FROM article WHERE categorie_id = ?");
+        $verif->execute([$id]);
+        $nbArticles = $verif->fetchColumn();
+
+        if ($nbArticles > 0) {
+            $msgErreur = "Impossible de supprimer : $nbArticles article(s) utilisent cette catégorie.";
+        } else {
+            $stmt = $connexion->prepare("DELETE FROM categorie WHERE id = ?");
+            $stmt->execute([$id]);
+            $msg = "Catégorie supprimée avec succès !";
         }
     }
 
@@ -34,23 +61,36 @@
                     <?php showMsgErreur($msg, color : "#126907"); ?>
                 <?php endif; ?>
 
-                <!-- Formulaire -->
-                <form method="POST" action="crud.php" style="margin-bottom: 20px;">
-                    <input type="text" name="nom_categorie" placeholder="Nom de la nouvelle catégorie" >
+                <?php if (!empty($msgErreur)): ?>
+                    <?php showMsgErreur($msgErreur); ?>
+                <?php endif; ?>
+
+                <!-- Formulaire d'ajout -->
+                <form method="POST" action="" style="margin-bottom: 20px;">
+                    <input type="text" name="nom_categorie" placeholder="Nom de la nouvelle catégorie">
                     <button type="submit">Ajouter</button>
                 </form>
 
-                <!-- Liste simple pour vérifier que ça s'enregistre bien (a enlever plus tard)-->
-                <ul>
-                    <?php foreach ($categories as $cat): ?>
-                        <li>ID <?= $cat['id'] ?> : <strong><?= htmlspecialchars($cat['nom']) ?></strong></li>
-                    <?php endforeach; ?>
-                </ul>
+                <h2>Liste des catégories existantes</h2>
 
-                <p><a href="index.php">Retour à l'accueil</a></p>
+                <?php foreach ($categories as $cat): ?>
+                    <div class="categorie-ligne">
+                        <form method="POST" action="">
+                            <input type="hidden" name="modifier_id" value="<?= $cat['id'] ?>">
+                            <input type="text" name="nouveau_nom" value="<?= htmlspecialchars($cat['nom']) ?>">
+                            <button type="submit">Modifier</button>
+                        </form>
+
+                        <form method="POST" action="">
+                            <input type="hidden" name="supprimer_id" value="<?= $cat['id'] ?>">
+                            <button type="submit" name="btReset">Supprimer</button>
+                        </form>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </main>
 
-<?php// Inclusion du footer
+
+<?php // Inclusion du footer
 require_once('footer.php');
 ?>

@@ -7,16 +7,19 @@
             </ul>
             
             <?php
-            //Pour les tests/vérification :
             /*
-                echo '<h3>$_GET</h3>';
-                    var_dump($_GET);
-                echo '<h3>$_POST</h3>';
-                    var_dump($_POST);
-                echo '<h3>_SESSION</h3>';
-                    var_dump($_SESSION);
-                echo '<h3>_SERVER</h3>';
-                    var_dump($_SERVER);
+            //Pour les tests/vérification :
+                echo '$_GET : ';
+                var_dump($_GET);
+
+                echo '$_POST : ';
+                var_dump($_POST);
+
+                echo '$_SESSION : ';
+                var_dump($_SESSION);
+
+                echo '$_SERVER : ';
+                var_dump($_SERVER);
             */
             ?>
         </footer>

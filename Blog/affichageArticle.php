@@ -8,9 +8,7 @@
     verifConnexionUtilisateur($connexion);
 ?>
 
-<?php
-/*Initialisation des messages d'erreurs (variables) */
-    
+<?php 
 
 /*traitement des erreurs */
 
@@ -96,7 +94,7 @@ $articleId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
                 <!-- Formulaire -->
                 <h3>Ajouter un commentaire</h3>
-                <form method="POST" action="affichageArticle.php">
+                <form method="POST" action="affichageArticle.php?id=<?= $articleId ?>">
                     <input type="hidden" name="id" value="<?= $articleId ?>">
                     <textarea name="texte_commentaire" rows="4" placeholder="Écrivez votre commentaire ici..." required></textarea>
                     <button type="submit">Poster le commentaire</button>

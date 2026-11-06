@@ -12,12 +12,6 @@
         $msgErreurCat = null;
 
 /*traitement des erreurs */
-/*Bouton reset*/
-    if (($_POST['btReset'] ?? '') === 'reset') {
-        unset($_SESSION['newTitre'], $_SESSION['newDescription'], $_SESSION['newCategorie']);
-        header('Location: creationArticle.php');
-        exit;
-    }
 
 /*Formulaire*/
     if(!empty($_POST)){
@@ -101,7 +95,7 @@
                     </label>
                     <br>
                     <button type="submit" name="btPoster">Poster mon nouvel article</button>
-                    <button type="submit" name="btReset">Annuler la création du nouveau post</button>
+                    <a href="creationArticle.php" class="btreset">Annuler la création du nouveau post</a>
                 </form>
             </div>
         </main>

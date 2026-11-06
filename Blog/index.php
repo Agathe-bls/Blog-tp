@@ -68,8 +68,7 @@
                                 <h3><?= htmlspecialchars($article['titre']) ?></h3>
                                 <!-- le 'nl2br' c'est pour prendre en compte les retours à la ligne dans les blogs-->
                                 <p><?= nl2br(htmlspecialchars($article['description'])) ?></p>
-                                <small>Écrit par <strong><?= htmlspecialchars($article['pseudo']) ?></strong></small>
-                                <br>
+                                <p><small>Écrit par <strong><?= htmlspecialchars($article['pseudo']) ?></strong></small></p>
                                 <a href="affichageArticle.php?id=<?= $article['id'] ?>">Lire la suite & commentaires</a>
                             </div>
                         <?php endforeach; ?>
