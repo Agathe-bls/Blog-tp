@@ -15,54 +15,56 @@
         $msgErreurCat = null;
 
 /*traitement des erreurs */
-if (($_POST['btReset'] ?? '') === 'reset') {
-    unset($_SESSION['newTitre'], $_SESSION['newDescription'], $_SESSION['newCategorie']);
-    header('Location: creationArticle.php');
-    exit;
-}
-
-if(!empty($_POST)){
-//Titre
-    if(isset($_POST['newTitre']) && !empty($_POST['newTitre'])){
-        if(mb_strlen($_POST['newTitre']) < 5){
-            $msgErreurTitre = 'Le titre de votre article doit faire au moins 5 caractères !';
-        } elseif(titreExist($connexion, $_POST['newTitre'])){
-            $msgErreurTitre = 'Ce titre existe déjà pour un autre article !';
-        } else {
-            $_SESSION['newTitre'] = htmlspecialchars($_POST['newTitre']);
-        }
-    } else {
-        $msgErreurTitre = 'Votre article doit comporter un titre !';
-    }
-//Description
-    if(isset($_POST['newDescription']) && !empty($_POST['newDescription'])){
-        if(mb_strlen($_POST['newDescription']) < 20){
-            $msgErreurDesc = 'La description de votre article doit faire au moins 20 caractères !';
-        } else {
-            $_SESSION['newDescription'] = htmlspecialchars($_POST['newDescription']);
-        }
-    } else {
-        $msgErreurDesc = 'Votre article doit comporter une description !';
-    }
-
-//Catégorie
-    if(isset($_POST['newCategorie']) && !empty($_POST['newCategorie'])){
-        if(categorieExist($connexion, intval($_POST['newCategorie']))){
-            $_SESSION['newCategorie'] = htmlspecialchars(intval($_POST['newCategorie']));
-        } else {
-            $msgErreurCat = "Seuls les choix de catégories proposés sont possibles !";
-        }
-    } else {
-        $msgErreurCat = "Votre article doit comporter une catégorie !";
-    }
-
-//Enregistrement en bdd reset des variables et redirection
-    if(empty($msgErreurTitre) && empty($msgErreurDesc) && empty($msgErreurCat)){
-        saveArticle($connexion, $_SESSION['newTitre'] , $_SESSION['newDescription'] , $_SESSION['newCategorie'] , $_SESSION['pseudo']);
+/*Bouton reset*/
+    if (($_POST['btReset'] ?? '') === 'reset') {
         unset($_SESSION['newTitre'], $_SESSION['newDescription'], $_SESSION['newCategorie']);
-        header('Location: index.php');
+        header('Location: creationArticle.php');
+        exit;
     }
-}
+
+/*Formulaire*/
+    if(!empty($_POST)){
+    //Titre
+        if(isset($_POST['newTitre']) && !empty($_POST['newTitre'])){
+            if(mb_strlen($_POST['newTitre']) < 5){
+                $msgErreurTitre = 'Le titre de votre article doit faire au moins 5 caractères !';
+            } elseif(titreExist($connexion, $_POST['newTitre'])){
+                $msgErreurTitre = 'Ce titre existe déjà pour un autre article !';
+            } else {
+                $_SESSION['newTitre'] = htmlspecialchars($_POST['newTitre']);
+            }
+        } else {
+            $msgErreurTitre = 'Votre article doit comporter un titre !';
+        }
+    //Description
+        if(isset($_POST['newDescription']) && !empty($_POST['newDescription'])){
+            if(mb_strlen($_POST['newDescription']) < 20){
+                $msgErreurDesc = 'La description de votre article doit faire au moins 20 caractères !';
+            } else {
+                $_SESSION['newDescription'] = htmlspecialchars($_POST['newDescription']);
+            }
+        } else {
+            $msgErreurDesc = 'Votre article doit comporter une description !';
+        }
+
+    //Catégorie
+        if(isset($_POST['newCategorie']) && !empty($_POST['newCategorie'])){
+            if(categorieExist($connexion, intval($_POST['newCategorie']))){
+                $_SESSION['newCategorie'] = htmlspecialchars(intval($_POST['newCategorie']));
+            } else {
+                $msgErreurCat = "Seuls les choix de catégories proposés sont possibles !";
+            }
+        } else {
+            $msgErreurCat = "Votre article doit comporter une catégorie !";
+        }
+
+    //Enregistrement en bdd reset des variables et redirection
+        if(empty($msgErreurTitre) && empty($msgErreurDesc) && empty($msgErreurCat)){
+            saveArticle($connexion, $_SESSION['newTitre'] , $_SESSION['newDescription'] , $_SESSION['newCategorie'] , $_SESSION['pseudo']);
+            unset($_SESSION['newTitre'], $_SESSION['newDescription'], $_SESSION['newCategorie']);
+            header('Location: index.php');
+        }
+    }
 ?>
 
         <main>
