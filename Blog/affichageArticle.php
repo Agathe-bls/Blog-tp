@@ -18,7 +18,7 @@
 /*traitement des erreurs */
 
 //Récupérer l'ID de l'article passé dans l'URL
-    $articleId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$articleId = isset($_POST['id']) ? intval($_POST['id']) : 0;
 
 // Récupérer l'article depuis la base de données via une requête 
     $stmtArticle = $connexion->prepare("SELECT * FROM article WHERE id = ?");
@@ -69,6 +69,7 @@
                 <p>Écrit par <strong><?= htmlspecialchars($articleCourant['pseudo']) ?></strong></p>
                 <p><?= htmlspecialchars($articleCourant['description']) ?></p>
                 <?php if(isset($_SESSION['pseudo']) && $_SESSION['pseudo'] == $articleCourant['pseudo']){ ?>
+
                     <form method="post" action="supprimerArticle.php">
                         <input type="hidden" name="id_article" value="<?= $articleCourant['id'] ?>">
                             <button type="submit">
@@ -105,7 +106,8 @@
 
                 <!-- Formulaire -->
                 <h3>Ajouter un commentaire</h3>
-                <form method="POST" action="affichageArticle.php?id=<?= $articleId ?>">
+                <form method="POST" action="affichageArticle.php">
+                    <input type="hidden" name="id" value="<?= $articleId ?>">
                     <textarea name="texte_commentaire" rows="4" placeholder="Écrivez votre commentaire ici..." required></textarea>
                     <button type="submit">Poster le commentaire</button>
                 </form>
