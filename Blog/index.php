@@ -13,11 +13,6 @@
 
 <?php
 /*traitement des erreurs */
-// Vérification de la connexion
-    if (!isset($_SESSION['estConnecte']) || $_SESSION['estConnecte'] != 1) {
-        header("Location: connexion.php");
-        exit();
-    }
 
 // 1. Récupérer dynamiquement la liste unique des auteurs depuis la base de données pour le filtre
     $stmtPseudos = $connexion->query("SELECT DISTINCT pseudo FROM article ORDER BY pseudo");
