@@ -15,8 +15,7 @@ Ce blog est composé de plusieurs fonctionnalités :
 
  - Une page de création d’article avec une ou plusieurs catégories (et les autres attributs).
 
- - Un CRUD pour les catégories (avec un préfix « /admin ») et accessible uniquement pour l’admin (admin@localhost.fr ; mdp : « admin69IUT; » ).
- (CRUD veut dire : CREATE READ UPDATE DELETE -> ce sont des actions dites basiques que l'on fait habituellement sur un objet. Donc un formulaire pour créer une catégorie, un pour éditer (penser à garder l'ID quelque part), une page qui les liste et un bouton pour supprimer dans cette liste directement.)
+ - Un CRUD pour les catégories accessible uniquement pour l’admin (admin@localhost.fr ; mdp : « admin69IUT; » ).
 
  - La possibilité pour le propriétaire de l’article ou du commentaire de supprimer leur participation.
 
